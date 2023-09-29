@@ -136,26 +136,7 @@ stages:
       displayName: "Job 5"
       timeoutInMinutes: "30"
       steps:
-        - checkout: self
-          clean: "true"
-
-        - task: Bash@3
-          displayName: "Task 1 2"
-          inputs:
-            targetType: "inline"
-            failOnStderr: true
-            script: |
-              echo "Stage 1 Job 2 Task 1"
-              sleep 60
-              
-
-        - task: Bash@3
-          displayName: "Task 2 3"
-          inputs:
-            targetType: "inline"
-            failOnStderr: true
-            script: |
-              echo "Stage 1 Job 3 Task 2"
+      - template: templates/job1.yml
 
 - stage: b
   jobs:
