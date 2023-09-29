@@ -1,0 +1,107 @@
+variables:
+- name: dockerTag
+  value: latest
+
+
+parameters:
+- name: image
+  displayName: Pool Image
+  values:
+  - windows-latest
+  - ubuntu-latest
+  - macOS-latest
+- name: test
+  displayName: Run Tests?
+  type: boolean
+  default: false
+- name: 'vmImage'
+  default: 'ubuntu-22.04'
+  type: string
+
+trigger:
+  batch: "true"
+  branches:
+    include:
+      - main
+
+stages:
+- stage: A
+  jobs:
+    - job: "CI_Step_1"
+      displayName: "Job 1"
+      timeoutInMinutes: "30"
+      steps:
+        - checkout: self
+          clean: "true"
+
+        - task: Bash@3
+          displayName: "Task 1"
+          inputs:
+            targetType: "inline"
+            failOnStderr: true
+            script: |
+              echo "Stage 1 Job 1 Task 1"
+              sleep 60
+              
+
+        - task: Bash@3
+          displayName: "Task 2"
+          inputs:
+            targetType: "inline"
+            failOnStderr: true
+            script: |
+              echo "Stage 1 Job 1 Task 2"
+
+    - job: "CI_Step_2"
+      displayName: "Job 2"
+      timeoutInMinutes: "30"
+      steps:
+        - checkout: self
+          clean: "true"
+
+        - task: Bash@3
+          displayName: "Task 1 1"
+          inputs:
+            targetType: "inline"
+            failOnStderr: true
+            script: |
+              echo "Stage 1 Job 2 Task 1"
+              sleep 60
+              
+
+        - task: Bash@3
+          displayName: "Task 2 2"
+          inputs:
+            targetType: "inline"
+            failOnStderr: true
+            script: |
+              echo "Stage 1 Job 2 Task 2"
+
+- stage: b
+  jobs:
+  - job: "CI_Step_3"
+    displayName: "Job 2"
+    timeoutInMinutes: "30"
+    steps:
+      - checkout: self
+        clean: "true"
+
+      - task: Bash@3
+        displayName: "Task 2"
+        inputs:
+          targetType: "inline"
+          failOnStderr: true
+          script: |
+            echo "Stage 1 Job 2 Task 1"
+            sleep 60
+            
+
+      - task: Bash@3
+        displayName: "Task 2"
+        inputs:
+          targetType: "inline"
+          failOnStderr: true
+          script: |
+            echo "Stage 1 Job 2 Task 2"
+            
+
