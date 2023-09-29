@@ -2,6 +2,11 @@ variables:
 - name: dockerTag
   value: latest
 
+pool:
+    name: Default
+    demands:
+        - Agent.OSArchitecture -equals X64
+        - Agent.OS -equals Linux
 
 parameters:
 - name: image
